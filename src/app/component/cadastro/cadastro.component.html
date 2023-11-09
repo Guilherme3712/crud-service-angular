@@ -1,0 +1,88 @@
+<div class="container mt-2">
+    <div class="card">
+        <div class="card-header">
+            <h1>Cadastro Trens</h1>
+            <div class="inputs d-flex gap-5 justify-content-centerx">
+                <div class="col-4">
+                    <div class="mb-1">
+                        Nome
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="nome">
+                </div>
+                <div class="col-4">
+                    <div class="mb-1">
+                        Quantidade
+                    </div>
+                    <input type="number" class="form-control " [(ngModel)]="quantidade">
+                </div>
+                <div class="align-self-end mb-1">
+                    <button class="btn btn-primary btn-sm" (click)="adicionarNovoTrem()">
+                        Adicionar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="p-3">
+            <h3>Trens Cadastrados</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Editar</th>
+                        <th scope="col">Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trem of listaTrem; let i=index">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{trem.nome}}</td>
+                        <td>{{trem.quantidade}}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" [attr.data-bs-target]="'#editModal' + i">
+                                Editar
+                            </button>
+                            <div class="modal fade" [attr.id]="'editModal'+i" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="editModalLabel">Editar</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="col-5">
+                                                <label class="mb-1">
+                                                    ID {{i+1}}
+                                                </label>
+                                            </div>
+                                            <div class="col-5">
+                                                <label class="mb-1">
+                                                    Nome
+                                                </label>
+                                                <input type="text" class="form-control" [placeholder]="trem.nome" [(ngModel)]="editNome">
+                                            </div>
+                                            <div class="col-5">
+                                                <label class="mb-1">
+                                                    Quantidade
+                                                </label>
+                                                <input type="number" class="form-control" [placeholder]="trem.quantidade" [(ngModel)]="editQuantidade">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                            <button type="button" class="btn btn-primary" (click)="salvarEdit(i)" data-bs-dismiss="modal">Salvar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" (click)="excluirTrem(i)">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
